@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_clipboard_list"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_workout"
+            android:icon="@drawable/ic_dumbbell"
+            android:title="@string/workout" />
+
+
+        <item android:title="@string/settings"
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_cog">
+        </item>
+    </group>
+
+    <item
+        android:title="@string/settings"
+        android:id="@+id/settings_menu_item"
+        android:visible="false"
+        >
+        <menu
+            android:layout_marginTop="5dp">
+            <item android:id="@+id/settings_item1"
+                android:icon="@drawable/ic_menu_send"
+                android:title="MENU ITEM 1"
+                android:layout_marginLeft="20dp" />
+            <item android:id="@+id/settings_item2"
+                android:icon="@drawable/ic_menu_send"
+                android:title="MENU ITEM 2"
+                android:layout_marginLeft="20dp"/>
+            <item android:id="@+id/settings_item3"
+                android:icon="@drawable/ic_menu_send"
+                android:title="MENU ITEM 3"
+                android:layout_marginLeft="20dp"/>
+
+        </menu>
+    </item>
+
+
+
+</menu>
