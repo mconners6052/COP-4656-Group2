@@ -3,6 +3,8 @@ package com.fitness.sm.smartmuscle;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView;
     private boolean sOpen = false;
     private Menu settings;
+    private Fragment home = new HomeFragment();
+    private Fragment workout = new WorkoutFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,12 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         settings = navigationView.getMenu();
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,new HomeFragment()).commit();
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.main_frame);
+        if (fragment == null) {
+            fragment = home;
+            fm.beginTransaction().add(R.id.main_frame, fragment).commit();
+        }
     }
 
 
@@ -68,11 +77,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (id == R.id.nav_home) {
             Toast.makeText(this,"HOME",Toast.LENGTH_LONG).show();
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,home).commit();
             drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_workout) {
             Toast.makeText(this,"WORKOUT",Toast.LENGTH_LONG).show();
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,new WorkoutFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,workout).commit();
             drawer.closeDrawer(GravityCompat.START);
         }
         else if (id == R.id.nav_settings) {
