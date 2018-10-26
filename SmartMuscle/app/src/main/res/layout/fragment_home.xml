@@ -1,14 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
     tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/home" />
+        android:gravity="top"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/layoutColor"
+            android:gravity="center"
+            android:text="@string/quote_of_day"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/layoutColor"
+            android:gravity="center"
+            android:text="@string/quote"
+            android:textColor="@color/textColor"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top|center"
+        android:orientation="vertical"
+        android:paddingTop="175dp">
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_cog"
+            android:scaleType="fitXY"
+            android:background="@color/backgroundColor"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center"
+        android:orientation="horizontal"
+        android:paddingBottom="50dp"
+        >
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="175dp"
+            android:src="@android:drawable/ic_media_previous"
+            android:scaleType="fitXY"
+            android:background="@color/backgroundColor"/>
+
+        <com.jjoe64.graphview.helper.GraphViewXML
+            android:layout_width="250dp"
+            android:layout_height="175dp"
+            android:background="@color/textColor"
+            app:seriesData="0=5;2=5;3=0;4=2"
+            app:seriesType="line"
+            app:seriesColor="#ee0000"/>
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="175dp"
+            android:src="@android:drawable/ic_media_next"
+            android:scaleType="fitXY"
+            android:background="@color/backgroundColor">
+
+        </ImageButton>
+
+    </LinearLayout>
+
+
+
 
 </FrameLayout>
