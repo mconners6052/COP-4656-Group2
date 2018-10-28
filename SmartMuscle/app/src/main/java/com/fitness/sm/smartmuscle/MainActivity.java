@@ -1,11 +1,9 @@
 package com.fitness.sm.smartmuscle;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
+import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import java.util.List;
 
 import static android.support.v7.widget.ListPopupWindow.MATCH_PARENT;
 import static android.support.v7.widget.ListPopupWindow.WRAP_CONTENT;
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity
     private Menu settings;
     private Fragment home = new HomeFragment();
     private Fragment workout = new WorkoutFragment();
+    private FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         settings = navigationView.getMenu();
-        FragmentManager fm = getSupportFragmentManager();
+        fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.main_frame);
         if (fragment == null) {
             fragment = home;
@@ -64,7 +65,16 @@ public class MainActivity extends AppCompatActivity
             }else {
                 drawer.closeDrawer(GravityCompat.START);
             }
-        } else {
+        } else if(fm.getFragments().toString().contains("ExerciseFragmentContainer")) {
+            fm.beginTransaction().replace(R.id.main_frame,workout).commit();
+        } else if (fm.getFragments().toString().contains("WorkoutFragment")){
+            fm.beginTransaction().replace(R.id.main_frame,home).commit();
+        } else{
+            Toast.makeText(this,"getFragments()"+fm.getFragments(),Toast.LENGTH_LONG).show();
+            List<Fragment> fl = fm.getFragments();
+            for (Fragment i:fl){
+                Log.d("OPEN FRAGMENT: ",i.toString());
+            }
             super.onBackPressed();
         }
     }
@@ -77,11 +87,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (id == R.id.nav_home) {
             Toast.makeText(this,"HOME",Toast.LENGTH_LONG).show();
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,home).commit();
+            fm.beginTransaction().replace(R.id.main_frame,home).commit();
             drawer.closeDrawer(GravityCompat.START);
         } else if (id == R.id.nav_workout) {
             Toast.makeText(this,"WORKOUT",Toast.LENGTH_LONG).show();
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,workout).commit();
+            fm.beginTransaction().replace(R.id.main_frame,workout).commit();
             drawer.closeDrawer(GravityCompat.START);
         }
         else if (id == R.id.nav_settings) {

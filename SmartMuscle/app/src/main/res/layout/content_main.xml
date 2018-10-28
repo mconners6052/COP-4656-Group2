@@ -12,7 +12,10 @@
         android:id="@+id/main-frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="?attr/actionBarSize">
-    </FrameLayout>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        ></FrameLayout>
 
 </RelativeLayout>
