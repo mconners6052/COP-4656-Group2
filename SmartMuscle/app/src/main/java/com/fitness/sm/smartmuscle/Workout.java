@@ -17,7 +17,7 @@ public class Workout{
 
     private Workout(Context context){ //Temporary constructor (JUST TO SET TEST VALUES)
         routine = new ArrayList<>();
-        for(int i=1; i<9;i++){
+        for(int i=1; i<13;i++){
             Log.d("FRAG_INIT: ","TEMP Exercise Index: "+i);
             routine.add(new Exercise("Exercise "+i,i+1));
         }

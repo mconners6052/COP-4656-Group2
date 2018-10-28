@@ -26,7 +26,7 @@ public class Exercise {
         for (int j=0; j<i;j++){
             steps.add("Step "+j);
         }
-        url = "https://www.youtube.com/watch?v=ZZ5LpwO-An4";
+        url = "http://www.youtube.com/watch?v=ZZ5LpwO-An4";
         sets = i;
         reps = i*2;
     }
