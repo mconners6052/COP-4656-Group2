@@ -26,8 +26,11 @@ public class Exercise extends Muscles{
     Exercise(String n, int i){ //Temporary constructor (JUST TO SET TEST VALUES)
         name = n;
         steps = new ArrayList<>();
+        s_times = new ArrayList<>();
         for (int j=0; j<i;j++){
             steps.add("Step "+j);
+            s_times.add(j*5);
+
         }
         url = "http://www.youtube.com/watch?v=ZZ5LpwO-An4";
         sets = i;
