@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void checkUpdate(){
-        //USED TO UPDATE VISUAL SETTINGS
+        //every 24 hour update Workout
     }
 
     boolean settings(boolean state){ //will open and close settings menu

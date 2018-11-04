@@ -133,6 +133,7 @@ public class ExerciseFragment extends Fragment {
         private TextView mStep;
         private TextView mDescription;
         private Exercise exercise;
+        private int startTime;
         private boolean expanded = false;
 
         public StepHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -146,14 +147,13 @@ public class ExerciseFragment extends Fragment {
             exercise = ex;
             mStep.setText("Step: "+(position+1));
             mDescription.setText(ex.getStep(position));
+            startTime = ex.getS_time(position);
         }
 
         @Override
         public void onClick(View v) {
             //this is where functionality for setting playback for video would go
             Toast.makeText(getActivity(), exercise.getName() + " clicked!", Toast.LENGTH_SHORT).show();
-
-
         }
     }
 

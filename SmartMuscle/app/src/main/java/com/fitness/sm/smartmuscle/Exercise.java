@@ -3,14 +3,17 @@ package com.fitness.sm.smartmuscle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Exercise {
+public class Exercise extends Muscles{
 
     private List<String> steps;
+    private List<Integer> s_times;
     private String name;
     private String url;
     private int sets;
     private int reps;
+    private int weight;
     private boolean finished = false;
+    private MuscleGroup mg;
 
     Exercise(String n,List<String> s, String u, int st, int rp){
         name = n;
@@ -50,4 +53,10 @@ public class Exercise {
     public boolean isFinished() {return finished;}
 
     public void finish(){finished = true;}
+
+    public MuscleGroup getMg() {return mg;}
+
+    public int getWeight() {return weight;}
+
+    public Integer getS_time(int i) {return s_times.get(i);}
 }

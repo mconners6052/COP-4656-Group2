@@ -76,7 +76,6 @@ public class WorkoutFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            //Toast.makeText(getActivity(), exercise.getName() + " clicked!", Toast.LENGTH_SHORT).show();
             FragmentManager fm = getFragmentManager();
             efc.setExercise(exercise);
             fm.beginTransaction().replace(R.id.main_frame, efc).commit();
