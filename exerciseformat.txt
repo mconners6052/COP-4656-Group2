@@ -1,0 +1,8 @@
+youTubeLink (String)
+exerciseName (String)
+muscGroup (int) // arm - 0, leg - 1, chest - 2, back - 3, etc - 4
+isWanted (boolean)
+muscNum (int)
+steps (String[]) 
+startTimes (int[]) 
+endTimes (int[]) 
