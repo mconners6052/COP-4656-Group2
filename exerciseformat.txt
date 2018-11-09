@@ -1,8 +1,3 @@
-youTubeLink (String)
-exerciseName (String)
-muscGroup (int) // arm - 0, leg - 1, chest - 2, back - 3, etc - 4
-isWanted (boolean)
-muscNum (int)
-steps (String[]) 
-startTimes (int[]) 
-endTimes (int[]) 
+| youTubeLink | exerciseName | muscGroup: arm - 0, leg - 1, chest - 2, back - 3, etc - 4 | isWanted | muscNum |
+| step 1 | step 2 | step n |
+| startTime for step 1 | startTime for step 2| startTime for step n |
