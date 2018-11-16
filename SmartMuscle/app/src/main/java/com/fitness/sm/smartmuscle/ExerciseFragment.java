@@ -38,7 +38,7 @@ public class ExerciseFragment extends Fragment  {
     private int difficultyColor = Color.GREEN;
     private static int ORANGE = Color.rgb(255,140,0);
     private CheckBox completed;
-    public int difficulty;
+    public boolean videoinit =false;
     YouTubePlayerView youTubePlayerView;
     private YouTubePlayer.OnInitializedListener onInitializedListener;
     private YouTubePlayerSupportFragment ytFragment = YouTubePlayerSupportFragment.newInstance();
@@ -58,6 +58,7 @@ public class ExerciseFragment extends Fragment  {
                     youTubePlayer.cueVideo(videoURL);
                     youTubePlayer.play();
                 }
+                videoinit = true;
 
             }
 
@@ -161,6 +162,16 @@ public class ExerciseFragment extends Fragment  {
     }
     public Exercise getExercise(){return exercise;}
 
+    public void pauseVideo(){
+        if(videoinit && youTubePlayer.isPlaying()){
+            youTubePlayer.pause();
+        }
+    }
+    public void resumeVideo(){
+        if(videoinit){
+            youTubePlayer.play();
+        }
+    }
 
 
     private class StepHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

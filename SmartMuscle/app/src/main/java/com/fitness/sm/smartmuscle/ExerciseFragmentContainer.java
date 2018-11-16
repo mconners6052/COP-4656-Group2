@@ -68,6 +68,8 @@ public class ExerciseFragmentContainer extends Fragment {
                     Log.d("INDEX CHANGE","current index: "+index+" | next index: "+(index+1));
                     setExercise(workout.getExercise(index+1));
                     fm.beginTransaction().replace(R.id.exercise_frame,routine.get(index)).commit();
+                    routine.get(index-1).pauseVideo();
+                    routine.get(index).resumeVideo();
                 }
                 //if last change the btn to non clickable?
             }});
@@ -79,6 +81,8 @@ public class ExerciseFragmentContainer extends Fragment {
                     Log.d("INDEX CHANGE","current index: "+index+" | next index: "+(index-1));
                     setExercise(workout.getExercise(index-1));
                     fm.beginTransaction().replace(R.id.exercise_frame,routine.get(index)).commit();
+                    routine.get(index+1).pauseVideo();
+                    routine.get(index).resumeVideo();
                 }
                 // if first change btn to non clickable
             }});

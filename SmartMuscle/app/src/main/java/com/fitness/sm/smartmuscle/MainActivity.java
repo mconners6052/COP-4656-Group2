@@ -109,6 +109,8 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
+
     public void checkUpdate(){
         //every 24 hour update Workout
     }
