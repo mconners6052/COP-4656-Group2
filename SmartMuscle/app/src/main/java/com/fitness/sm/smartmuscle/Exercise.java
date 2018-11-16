@@ -32,7 +32,7 @@ public class Exercise extends Muscles{
             s_times.add(j*5);
 
         }
-        url = "http://www.youtube.com/watch?v=ZZ5LpwO-An4";
+        url = "ZZ5LpwO-An4";
         sets = i;
         reps = i*2;
     }

@@ -12,30 +12,62 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+import com.google.android.youtube.player.YouTubePlayerView;
+
 import java.util.List;
 
-public class ExerciseFragment extends Fragment {
+public class ExerciseFragment extends Fragment  {
     private Exercise exercise;
     private RecyclerView mStepRecyclerView;
     private ExerciseFragment.StepAdapter mAdapter;
-    private VideoView video;
-    private Uri videoURL;
+    private YouTubePlayer youTubePlayer;
+    private String videoURL;
     private SeekBar ratingBar;
     private int difficultyColor = Color.GREEN;
     private static int ORANGE = Color.rgb(255,140,0);
     private CheckBox completed;
     public int difficulty;
+    YouTubePlayerView youTubePlayerView;
+    private YouTubePlayer.OnInitializedListener onInitializedListener;
+    private YouTubePlayerSupportFragment ytFragment = YouTubePlayerSupportFragment.newInstance();
 
     public ExerciseFragment() {
         // Required empty public constructor
     }
 
+    private void youtubeInit(){
+        ytFragment.initialize(PlayerConfig.API_KEY, new YouTubePlayer.OnInitializedListener(){
+
+            @Override
+            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
+
+                if (!wasRestored) {
+                    youTubePlayer = player;
+                    youTubePlayer.cueVideo(videoURL);
+                    youTubePlayer.play();
+                }
+
+            }
+
+            @Override
+            public void onInitializationFailure(YouTubePlayer.Provider arg0, YouTubeInitializationResult arg1) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,9 +75,11 @@ public class ExerciseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_exercise, container, false);
         mStepRecyclerView = (RecyclerView)view.findViewById(R.id.steps_recycler);
         mStepRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        video = view.findViewById(R.id.video_view);
-        video.setVideoURI(videoURL);
-        video.start();
+
+        //YOUTUBE VIDEO IMPLEMENTATION
+        getChildFragmentManager().beginTransaction().add(R.id.youtube_frame,ytFragment).commit();
+        youtubeInit();
+
         ratingBar = view.findViewById(R.id.seekBar);
         ratingBar.setMax(1);
         ratingBar.setMax(100);
@@ -122,7 +156,7 @@ public class ExerciseFragment extends Fragment {
     }
     public void setExercise(Exercise ex){
         exercise = ex;
-        videoURL = Uri.parse(exercise.getUrl());
+        videoURL = exercise.getUrl();
         if (mStepRecyclerView != null){updateUI();}
     }
     public Exercise getExercise(){return exercise;}

@@ -5,18 +5,29 @@
     android:layout_height="match_parent"
     tools:context=".ExerciseFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <VideoView
+
+   <!-- <VideoView
         android:id="@+id/video_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="200dp" /> -->
+
+   <!-- <com.google.android.youtube.player.YouTubePlayerView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="visible"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/youtube_player"/> -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/youtube_frame"></FrameLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/steps_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/report_bar"
-        android:layout_below="@+id/video_view"
+        android:layout_below="@+id/youtube_frame"
         android:paddingTop="5dp">
 
     </android.support.v7.widget.RecyclerView>
