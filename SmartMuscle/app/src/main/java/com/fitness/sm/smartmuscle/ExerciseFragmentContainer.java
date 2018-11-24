@@ -45,6 +45,7 @@ public class ExerciseFragmentContainer extends Fragment {
         headingText = name;
     }*/
 
+    public Workout getWorkout() {return workout;}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,7 +70,7 @@ public class ExerciseFragmentContainer extends Fragment {
                     setExercise(workout.getExercise(index+1));
                     fm.beginTransaction().replace(R.id.exercise_frame,routine.get(index)).commit();
                     routine.get(index-1).pauseVideo();
-                    routine.get(index).resumeVideo();
+                    //routine.get(index).resumeVideo();
                 }
                 //if last change the btn to non clickable?
             }});
@@ -82,11 +83,11 @@ public class ExerciseFragmentContainer extends Fragment {
                     setExercise(workout.getExercise(index-1));
                     fm.beginTransaction().replace(R.id.exercise_frame,routine.get(index)).commit();
                     routine.get(index+1).pauseVideo();
-                    routine.get(index).resumeVideo();
+                    //routine.get(index).resumeVideo();
                 }
                 // if first change btn to non clickable
             }});
-
+        Log.d("EFC_OnCreate","Routine size: "+routine.size());
         fm.beginTransaction().add(R.id.exercise_frame,routine.get(index)).commit();
         return view;
     }
@@ -112,25 +113,26 @@ public class ExerciseFragmentContainer extends Fragment {
     }
 
     public void setWorkout(Workout w){
+        Log.i("EFC_SETWORKOUT","Started");
         workout = w;
-        makeFragRoutine();
 
-    }
-
-    private void makeFragRoutine(){
         if (routine != null){
             routine.clear();
         }
         for(Exercise e:workout.getRoutine()){
             ExerciseFragment tmp_ef = new ExerciseFragment();
             tmp_ef.setExercise(e);
+            Log.d("EFC_SETWORKOUT", tmp_ef.toString()+" added to routine");
             routine.add(tmp_ef);
         }
 
         for(ExerciseFragment ef:routine){
             Log.d("EFC Routine",ef.getExercise().getName());
         }
+
     }
+
+
 
 
 }

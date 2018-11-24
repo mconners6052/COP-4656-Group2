@@ -1,5 +1,6 @@
 package com.fitness.sm.smartmuscle;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,10 +21,19 @@ public class WorkoutFragment extends Fragment {
     private ExerciseFragmentContainer efc;
 
     public WorkoutFragment(){
+
+    }
+
+    /*public WorkoutFragment(){
         workout = Workout.get(getActivity());
         efc = new ExerciseFragmentContainer();
         efc.setWorkout(workout);
     }
+
+   /* public WorkoutFragment(){
+        workout = w;
+
+    }*/
 
     private void refreshWorkout(){
         //create new workout
@@ -52,6 +62,12 @@ public class WorkoutFragment extends Fragment {
         }
     }
 
+    public void setWorkout(Workout w){workout = w;}
+    public void setEfc(ExerciseFragmentContainer efc){
+        this.efc = efc;
+        workout = efc.getWorkout();
+    }
+
     private class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mTitleTextView;
         private TextView mSets;
@@ -78,6 +94,7 @@ public class WorkoutFragment extends Fragment {
         public void onClick(View v) {
             FragmentManager fm = getFragmentManager();
             efc.setExercise(exercise);
+            //trigger callback in main to swap to EFC
             fm.beginTransaction().replace(R.id.main_frame, efc).commit();
 
         }
@@ -100,6 +117,7 @@ public class WorkoutFragment extends Fragment {
         @Override
         public int getItemCount() {return exercises.size();}
     }
+
 
 
 

@@ -48,7 +48,7 @@ public class ExerciseFragment extends Fragment  {
     }
 
     private void youtubeInit(){
-        ytFragment.initialize(PlayerConfig.API_KEY, new YouTubePlayer.OnInitializedListener(){
+        ytFragment.initialize("@string/youtube_APT_key", new YouTubePlayer.OnInitializedListener(){
 
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
@@ -56,7 +56,7 @@ public class ExerciseFragment extends Fragment  {
                 if (!wasRestored) {
                     youTubePlayer = player;
                     youTubePlayer.cueVideo(videoURL);
-                    youTubePlayer.play();
+                    //youTubePlayer.play();
                 }
                 videoinit = true;
 
@@ -192,7 +192,6 @@ public class ExerciseFragment extends Fragment  {
             exercise = ex;
             mStep.setText("Step: "+(position+1));
             mDescription.setText(ex.getStep(position));
-            startTime = ex.getS_time(position);
         }
 
         @Override

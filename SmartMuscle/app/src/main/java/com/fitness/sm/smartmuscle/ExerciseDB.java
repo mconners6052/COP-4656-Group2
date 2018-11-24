@@ -1,95 +1,76 @@
 package com.fitness.sm.smartmuscle;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
+import android.arch.persistence.room.Database;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
+import android.content.res.Resources;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 
-public class ExerciseDB extends SQLiteOpenHelper{
-    // Database Version
-    private static final int DATABASE_VERSION = 1;
-    // Database Name
-    private static final String DATABASE_NAME = "MDAG2_Database";
-    // Contacts table name
-    private static final String TABLE_NAME = "Exercises";
+@Database(entities = {ExerciseDBObject.class}, version = 1,exportSchema = false)
+public abstract class ExerciseDB extends RoomDatabase{
 
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "exercise";
-    private static final String KEY_URL = "url";
-    private static final String KEY_REPS = "reps";
-    private static final String KEY_SETS = "Sets";
-    private static final String KEY_FIN = "finished";
-    private static final String KEY_STEPS = "steps";
+    public abstract DaoAccess dao();
 
-    private List<String> temp;
-    public ExerciseDB(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    private static ExerciseDB INSTANCE;
+
+    public synchronized static ExerciseDB getInstance(Context context){
+        if(INSTANCE == null){
+            INSTANCE = buildDb(context);
+        }
+        return INSTANCE;
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_NAME +
-                "("+
-                    KEY_ID + " INTEGER PRIMARY KEY," +
-                    KEY_NAME + " TEXT,"+
-                    KEY_URL + " TEXT," +
-                    KEY_REPS + " TEXT" +
-                ")";
-        db.execSQL(CREATE_CONTACTS_TABLE);
-    }
+    private static ExerciseDB buildDb(final Context context){ //this method will construct the DB from JSON data
+        return Room.databaseBuilder(context,ExerciseDB.class,"exercise_db")
+                .addCallback(new Callback() {
+                    @Override
+                    public void onCreate(@NonNull SupportSQLiteDatabase db) { //This will happen during database onCreate()
+                        super.onCreate(db);
+                        Log.d("DB_BUILD","DB onCreate() callback");
+                        Executors.newSingleThreadExecutor().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                List<ExerciseDBObject> ex = new ArrayList<>();
+                                //ex.add(new ExerciseDBObject("TestURL","TestName",1));
+                                try{
+                                    Resources r = context.getResources();
+                                    InputStream is = r.openRawResource(R.raw.back); //read in JSON data from input stream
+                                    int size = is.available();
+                                    byte[] buffer = new byte[size];
+                                    is.read(buffer);
+                                    is.close();
+                                    JSONArray jsData = new JSONArray(new String(buffer, "UTF-8")); //parse JSON
+                                    for (int i=0;i<jsData.length();i++) { //this will convert the JSON Array into ExerciseDBObjects for the database
+                                        JSONObject ob = jsData.getJSONObject(i);
+                                        ex.add(new ExerciseDBObject(ob.getString("url"), ob.getString("name"), ob.getString("steps"), ob.getInt("mg"), ob.getInt("set"), ob.getInt("rep"), ob.getInt("weight"), ob.getInt("wanted")));
+                                        Log.d("DB_BUILD",ob.getString("name")+" added to DB");
+                                    }
+                                } catch (JSONException e){
+                                    e.printStackTrace();
+                                    Log.e("DB_DATA_COMPILER","Failed to compile data for database due to JSON Exeption");
+                                } catch (IOException er) {
+                                    er.printStackTrace();
+                                    Log.e("DB_DATA_COMPILER","Failed to compile data for database due to IO Exception");
+                                } finally {
+                                    getInstance(context).dao().insertExercises(ex); //add exercises to database
+                                }
+                            }
+                        });
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        // Creating tables again
-        onCreate(db);
-    }
-
-    // Adding new Exercise
-    public void addExercise(Exercise shop) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, shop.getName()); // Exercise Name
-        values.put(KEY_URL, shop.getUrl()); // Exercise URL
-        values.put(KEY_REPS, shop.getReps()); // Exercise Reps
-        // Inserting Row
-        db.insert(TABLE_NAME, null, values);
-        db.close(); // Closing database connection
-    }
-
-    // Getting one Exercise Using an ID
-    public Exercise getExercise(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME, new String[] { KEY_ID,
-                        KEY_NAME, KEY_URL, KEY_REPS }, KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-        Exercise contact = new Exercise(
-                cursor.getString(1),
-                temp ,
-                cursor.getString(2),
-                0,
-                Integer.parseInt(cursor.getString(3))
-        );
-        // return shop
-        return contact;
-    }
-
-    // Updating an Exercise
-    public int updateShop(Exercise shop,int reps, int sets) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(KEY_NAME, shop.getName());
-        values.put(KEY_URL, shop.getUrl());
-        values.put(KEY_REPS, reps);
-        // updating row
-        return db.update(TABLE_NAME, values, KEY_ID + " = ?",
-                new String[]{String.valueOf(shop.getName())});
+                    }
+                }).build();
     }
 }

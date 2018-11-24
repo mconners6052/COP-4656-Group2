@@ -8,8 +8,10 @@ import java.util.List;
 
 public class Workout extends Muscles{
     private static Workout sWorkout;
-    private List<Exercise> routine;
+    private static List<Exercise> routine;
     private int disLikedExercise = 0;
+    private static Context context;
+
 
 
     public static Workout get(Context context){
@@ -17,7 +19,7 @@ public class Workout extends Muscles{
         return sWorkout;
     }
 
-    private Workout(Context context){ //Temporary constructor (JUST TO SET TEST VALUES)
+   /*private Workout(Context context){ //Temporary constructor (JUST TO SET TEST VALUES)
         //updateWorkout();
         routine = new ArrayList<>();
         for(int i=1; i<13;i++){
@@ -25,6 +27,11 @@ public class Workout extends Muscles{
             routine.add(new Exercise("Exercise "+i,i+1));
         }
     }
+   */
+   private Workout(Context context){ //Temporary constructor (Getting Values from DB)
+       this.context = context;
+       updateWorkout();
+   }
 
     public List<Exercise> getRoutine(){return routine;}
     public Exercise getExercise(int index){
@@ -81,13 +88,25 @@ public class Workout extends Muscles{
     }
 
 
-    public void updateWorkout(){
+    public static void updateWorkout(){
+
         //THIS WHERE THE WORKOUTS ARE MADE.
         // Look at an exercise to get the muscle group than use that to update the muscle group
-        if (routine != null){
-            // Look at an exercise to get the muscle group than use that to update the muscle group
-        }else{
-            //
-        }
+        final ExerciseDB dbInstance;
+        dbInstance = ExerciseDB.getInstance(context);
+        routine = null;
+        routine = new ArrayList<>();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<ExerciseDBObject> exercises = new ArrayList<>();
+                exercises = dbInstance.dao().fetchAllExercises();
+                for(ExerciseDBObject ob: exercises){
+                    routine.add(new Exercise(ob));
+                    Log.d("DataRetrieved", ob.getName());
+                }
+            }
+        }).start();
     }
+
 }

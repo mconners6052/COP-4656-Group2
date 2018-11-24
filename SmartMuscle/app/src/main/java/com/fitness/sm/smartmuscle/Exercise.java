@@ -1,19 +1,28 @@
 package com.fitness.sm.smartmuscle;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Exercise extends Muscles{
 
-    private List<String> steps;
-    private List<Integer> s_times;
-    private String name;
+
     private String url;
+    private List<String> steps;
+    private String name;
     private int sets;
     private int reps;
     private int weight;
-    private boolean finished = false;
     private MuscleGroup mg;
+    private boolean finished = false;
 
     Exercise(String n,List<String> s, String u, int st, int rp){
         name = n;
@@ -26,15 +35,37 @@ public class Exercise extends Muscles{
     Exercise(String n, int i){ //Temporary constructor (JUST TO SET TEST VALUES)
         name = n;
         steps = new ArrayList<>();
-        s_times = new ArrayList<>();
         for (int j=0; j<i;j++){
             steps.add("Step "+j);
-            s_times.add(j*5);
 
         }
         url = "ZZ5LpwO-An4";
         sets = i;
         reps = i*2;
+    }
+
+    Exercise(ExerciseDBObject edb){
+        name = edb.getName();
+        url = edb.getUrl();
+        sets = edb.getSets();
+        reps = edb.getReps();
+        weight = edb.getWeight();
+        mg = Muscles.getMuscleGroup(edb.getMg_int());
+        /*if (edb.getWanted()==1){
+            wanted=true;
+        }else {
+            wanted=false;
+        }*/
+        steps = new ArrayList<>();
+        try {
+            JSONArray j_steps = new JSONArray(edb.getSteps());
+            for(int i=0; i<j_steps.length();i++){
+                steps.add(j_steps.getString(i));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("Exercise_Constructor","Unable to parse JSON Array");
+        }
     }
 
     public void setName(String name) {this.name = name;}
@@ -61,5 +92,4 @@ public class Exercise extends Muscles{
 
     public int getWeight() {return weight;}
 
-    public Integer getS_time(int i) {return s_times.get(i);}
 }
