@@ -15,6 +15,9 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.fitness.sm.smartmuscle.helpers.UpdateEvent;
+import com.fitness.sm.smartmuscle.helpers.UpdateHandler;
+
 import java.util.List;
 
 import static android.support.v7.widget.ListPopupWindow.MATCH_PARENT;
@@ -51,10 +54,24 @@ public class MainActivity extends AppCompatActivity
         home = new HomeFragment();
         workoutFrag = new WorkoutFragment();
         efc = new ExerciseFragmentContainer();
-        efc.setWorkout(workout);
-        workoutFrag.setEfc(efc);
 
+        workout.addUpdateListener(new UpdateHandler() {
+            @Override
+            public void onUpdate(UpdateEvent event) {
+                if(event.getData()!=""){
+                    Log.d("UPDATE_LISTENER","Request From: "+event.getOrigin()+" Data: "+event.getData());
+                }else{
+                    Log.d("UPDATE_LISTENER","Request From: "+event.getOrigin());
+                }
+                efc.setWorkout(workout);
+                workoutFrag.setEfc(efc);
 
+            }
+        });
+
+        //workout.updateWorkout();
+        //efc.setWorkout(workout);
+        //workoutFrag.setEfc(efc);
 
         //setting fragment
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -115,7 +132,7 @@ public class MainActivity extends AppCompatActivity
             testDB();
         }
         else if (id == R.id.settings_item2) {
-            workout.updateWorkout();
+            workout.updateWorkout(this.toString());
         }
         else if (id == R.id.settings_item3) {
             Toast.makeText(this,"Setting 3",Toast.LENGTH_LONG).show();

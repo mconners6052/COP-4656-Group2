@@ -1,4 +1,4 @@
-package com.fitness.sm.smartmuscle;
+package com.fitness.sm.smartmuscle.helpers;
 
 public class Muscles {
     public enum MuscleGroup

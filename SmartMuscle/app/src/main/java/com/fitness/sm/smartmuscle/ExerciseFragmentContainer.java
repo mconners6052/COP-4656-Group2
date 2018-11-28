@@ -119,9 +119,10 @@ public class ExerciseFragmentContainer extends Fragment {
         if (routine != null){
             routine.clear();
         }
-        for(Exercise e:workout.getRoutine()){
+        List<Exercise> ex = workout.getRoutine();
+        for(int i=0;i<ex.size();i++){
             ExerciseFragment tmp_ef = new ExerciseFragment();
-            tmp_ef.setExercise(e);
+            tmp_ef.setExercise(ex.get(i));
             Log.d("EFC_SETWORKOUT", tmp_ef.toString()+" added to routine");
             routine.add(tmp_ef);
         }

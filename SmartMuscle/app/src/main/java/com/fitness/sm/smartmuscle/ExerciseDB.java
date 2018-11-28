@@ -9,6 +9,8 @@ import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.fitness.sm.smartmuscle.helpers.DaoAccess;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

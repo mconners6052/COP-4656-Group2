@@ -1,10 +1,8 @@
 package com.fitness.sm.smartmuscle;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import com.fitness.sm.smartmuscle.helpers.Muscles;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,7 +10,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Exercise extends Muscles{
+public class Exercise extends Muscles {
 
 
     private String url;

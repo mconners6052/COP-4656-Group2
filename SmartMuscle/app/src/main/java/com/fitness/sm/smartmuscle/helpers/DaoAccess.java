@@ -1,9 +1,11 @@
-package com.fitness.sm.smartmuscle;
+package com.fitness.sm.smartmuscle.helpers;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
+
+import com.fitness.sm.smartmuscle.ExerciseDBObject;
 
 import java.util.List;
 
