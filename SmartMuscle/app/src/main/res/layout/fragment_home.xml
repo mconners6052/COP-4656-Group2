@@ -26,12 +26,19 @@
             android:textColor="@color/textColor"
             android:textSize="20sp"/>
         <TextView
+<<<<<<< HEAD
             android:id="@+id/quote_text_view"
+=======
+>>>>>>> d9b040a7f9fb0cc514fa6bf4fa192404b2062ce6
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/layoutColor"
             android:gravity="center"
+<<<<<<< HEAD
             android:text="@string/ERROR"
+=======
+            android:text="@string/quote"
+>>>>>>> d9b040a7f9fb0cc514fa6bf4fa192404b2062ce6
             android:textColor="@color/textColor"
             android:textSize="18sp"/>
 
@@ -44,6 +51,7 @@
         android:orientation="vertical"
         android:paddingTop="175dp">
 
+<<<<<<< HEAD
         <ImageView
             android:id="@+id/workout_button"
             android:layout_width="300dp"
@@ -54,5 +62,52 @@
             android:src="@drawable/ic_ab_day"/>
 
     </LinearLayout>
+=======
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_cog"
+            android:scaleType="fitXY"
+            android:background="@color/backgroundColor"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center"
+        android:orientation="horizontal"
+        android:paddingBottom="50dp"
+        >
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="175dp"
+            android:src="@android:drawable/ic_media_previous"
+            android:scaleType="fitXY"
+            android:background="@color/backgroundColor"/>
+
+        <com.jjoe64.graphview.helper.GraphViewXML
+            android:layout_width="250dp"
+            android:layout_height="175dp"
+            android:background="@color/textColor"
+            app:seriesData="0=5;2=5;3=0;4=2"
+            app:seriesType="line"
+            app:seriesColor="#ee0000"/>
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="175dp"
+            android:src="@android:drawable/ic_media_next"
+            android:scaleType="fitXY"
+            android:background="@color/backgroundColor">
+
+        </ImageButton>
+
+    </LinearLayout>
+
+
+
+>>>>>>> d9b040a7f9fb0cc514fa6bf4fa192404b2062ce6
 
 </FrameLayout>
