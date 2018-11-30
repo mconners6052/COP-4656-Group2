@@ -14,7 +14,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class WorkoutFragment extends Fragment {
+public class
+WorkoutFragment extends Fragment {
     private RecyclerView mWorkoutRecyclerView;
     private WorkoutAdapter mAdapter;
     private Workout workout;
