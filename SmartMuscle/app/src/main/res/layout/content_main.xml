@@ -11,16 +11,12 @@
     <FrameLayout
         android:id="@+id/main-frame"
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        ></FrameLayout>
-=======
-        android:layout_height="match_parent">
+        android:layout_marginTop="0dp">
+
     </FrameLayout>
->>>>>>> d9b040a7f9fb0cc514fa6bf4fa192404b2062ce6
 
 </RelativeLayout>

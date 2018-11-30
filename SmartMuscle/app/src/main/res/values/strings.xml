@@ -15,7 +15,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--Quotes-->
     <string name="quote_of_day"><u>Quote Of the Day</u></string>
-<<<<<<< HEAD
     <string name="quote00">\"Don\'t judge each day by the harvest you reap \nbut by the seed you plant\"</string>
     <string name="quote01">\"Only I can change my life. No one can do it for me.\"</string>
     <string name="quote02">\"Good, better, best. Never let it rest. \'Til your good is better and your better is best.\"</string>
@@ -49,7 +48,4 @@
     <string name="quote30"></string> -->
     <string name="ERROR">ERROR</string>
 
-=======
-    <string name="quote">\"Don\'t judge each day by the harvest you reap \nbut by the seed you plant\"</string>
->>>>>>> d9b040a7f9fb0cc514fa6bf4fa192404b2062ce6
 </resources>
