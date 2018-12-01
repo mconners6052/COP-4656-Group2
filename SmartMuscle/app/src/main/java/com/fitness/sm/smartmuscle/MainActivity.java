@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.fitness.sm.smartmuscle.helpers.UpdateEvent;
@@ -51,9 +52,9 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         workout = Workout.get(getApplicationContext());
-        home = new HomeFragment();
         workoutFrag = new WorkoutFragment();
         efc = new ExerciseFragmentContainer();
+
 
         workout.addUpdateListener(new UpdateHandler() {
             @Override
@@ -73,18 +74,25 @@ public class MainActivity extends AppCompatActivity
         //efc.setWorkout(workout);
         //workoutFrag.setEfc(efc);
 
+        home = new HomeFragment(workoutFrag, workout);
+
+
         //setting fragment
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         settings = navigationView.getMenu();
         fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.main_frame);
+
         if (fragment == null) {
             fragment = home;
             fm.beginTransaction().add(R.id.main_frame, fragment).commit();
         }
     }
 
+    protected void onResume(){
+        super.onResume();
+    }
 
     @Override
     public void onBackPressed() {
@@ -180,4 +188,6 @@ public class MainActivity extends AppCompatActivity
 
             }}).start();
     }
+
 }
+

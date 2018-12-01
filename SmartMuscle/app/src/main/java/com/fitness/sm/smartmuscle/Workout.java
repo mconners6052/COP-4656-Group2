@@ -108,5 +108,10 @@ public class Workout extends Muscles {
        disbatchEvent(new UpdateEvent(identifier,"WORKOUT_REQUEST"));
     }
 
+    public int MuscleChoice()
+    {
+        return routine.get(0).getMg().ordinal();
+        //return new Random().nextInt(4);
+    }
 
 }

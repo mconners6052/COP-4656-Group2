@@ -1,6 +1,7 @@
 package com.fitness.sm.smartmuscle;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,6 +26,7 @@ public class HomeFragment extends Fragment {
     private TextView mQuoteTextView;
     private View homeView;
     private WorkoutFragment wof;
+    private Workout workout;
     private Quote[] mQuoteBank = new Quote[] {
             new Quote(R.string.quote00),
             new Quote(R.string.quote01),
@@ -35,9 +37,11 @@ public class HomeFragment extends Fragment {
             new Quote(R.string.quote06),
     };
 
-    public HomeFragment() {
-        wof = new WorkoutFragment();
-        // Required empty public constructor
+    public HomeFragment(){}
+
+    public HomeFragment(WorkoutFragment wof, Workout workout) {
+        this.wof = wof;
+        this.workout = workout;
     }
 
 
@@ -54,7 +58,7 @@ public class HomeFragment extends Fragment {
 
         //Workout Button Clickable
         mWorkoutButton = homeView.findViewById(R.id.workout_button);
-        mWorkoutButton.setImageResource(R.drawable.ic_back_day);
+        SetImage(mWorkoutButton);
         mWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -65,6 +69,26 @@ public class HomeFragment extends Fragment {
         });
 
         return homeView;
+    }
+
+    private void SetImage(ImageView ib) {
+        switch (workout.MuscleChoice()) //change these for images
+        {
+            case 0:
+                ib.setImageResource(R.drawable.ic_arm_day);
+                break;
+            case 1:
+                ib.setImageResource(R.drawable.ic_leg_day);
+                break;
+            case 2:
+                ib.setImageResource(R.drawable.ic_chest_day);
+                break;
+            case 3:
+                ib.setImageResource(R.drawable.ic_back_day);
+                break;
+
+
+        }
     }
 
     private void updateQuote()
