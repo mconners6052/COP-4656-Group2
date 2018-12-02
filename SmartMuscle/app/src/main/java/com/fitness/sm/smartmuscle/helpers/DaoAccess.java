@@ -17,8 +17,14 @@ public interface DaoAccess {
     @Insert
     void insertExercises(List<ExerciseDBObject> exList);
 
-    @Query("SELECT * FROM ExerciseDBObject")
+    @Query("SELECT * FROM ExerciseDBObject WHERE wanted != 2")
     List<ExerciseDBObject> fetchAllExercises();
+
+    @Query("SELECT * FROM ExerciseDBObject WHERE mg_int = :MG AND wanted != 2")
+    List<ExerciseDBObject> fetchExercisesByMG(int MG);
+
+    @Query("SELECT mg_int FROM ExerciseDBObject WHERE wanted = 2")
+    int getLastMuscleGroup();
 
     @Update
     void updateExercise(ExerciseDBObject ex);

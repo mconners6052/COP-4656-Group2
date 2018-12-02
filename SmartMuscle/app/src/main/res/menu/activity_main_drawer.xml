@@ -29,7 +29,7 @@
             android:layout_marginTop="5dp">
             <item android:id="@+id/settings_item1"
                 android:icon="@drawable/ic_menu_send"
-                android:title="MENU ITEM 1"
+                android:title="Exercise Settings"
                 android:layout_marginLeft="20dp" />
             <item android:id="@+id/settings_item2"
                 android:icon="@drawable/ic_menu_send"

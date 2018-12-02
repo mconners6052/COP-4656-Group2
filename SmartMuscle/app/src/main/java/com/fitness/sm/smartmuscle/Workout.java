@@ -20,7 +20,7 @@ public class Workout extends Muscles {
 
 
 
-    public static Workout get(Context context){
+    public synchronized static Workout get(Context context){
         if (sWorkout == null){sWorkout= new Workout(context);}
         return sWorkout;
     }

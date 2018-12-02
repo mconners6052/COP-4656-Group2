@@ -11,7 +11,9 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:id="@+id/exercise"
-        android:text="Exercise" />
+        android:text="Exercise"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +28,9 @@
             android:gravity="end"
             android:paddingLeft="50dp"
             android:id="@+id/exercise_sets"
-            android:text="Sets: "/>
+            android:text="Sets: "
+            android:textStyle="bold"
+            android:textSize="16sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,7 +38,9 @@
             android:gravity="end"
             android:paddingRight="50dp"
             android:id="@+id/exercise_reps"
-            android:text="Reps: "/>
+            android:text="Reps: "
+            android:textStyle="bold"
+            android:textSize="16sp"/>
 
     </LinearLayout>
 </LinearLayout>
