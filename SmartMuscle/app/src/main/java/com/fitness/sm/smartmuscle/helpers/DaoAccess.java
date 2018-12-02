@@ -23,6 +23,10 @@ public interface DaoAccess {
     @Query("SELECT * FROM ExerciseDBObject WHERE mg_int = :MG AND wanted != 2")
     List<ExerciseDBObject> fetchExercisesByMG(int MG);
 
+    @Query("SELECT * FROM ExerciseDBObject WHERE mg_int = :MG AND wanted == 1")
+    List<ExerciseDBObject> fetchLikedExercisesByMG(int MG);
+
+
     @Query("SELECT mg_int FROM ExerciseDBObject WHERE wanted = 2")
     int getLastMuscleGroup();
 
