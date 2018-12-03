@@ -49,7 +49,7 @@ public abstract class ExerciseDB extends RoomDatabase{
                                 //ex.add(new ExerciseDBObject("TestURL","TestName",1));
                                 try{
                                     Resources r = context.getResources();
-                                    InputStream is = r.openRawResource(R.raw.back); //read in JSON data from input stream
+                                    InputStream is = r.openRawResource(R.raw.exercise_database); //read in JSON data from input stream
                                     int size = is.available();
                                     byte[] buffer = new byte[size];
                                     is.read(buffer);
@@ -68,6 +68,7 @@ public abstract class ExerciseDB extends RoomDatabase{
                                     Log.e("DB_DATA_COMPILER","Failed to compile data for database due to IO Exception");
                                 } finally {
                                     getInstance(context).dao().insertExercises(ex); //add exercises to database
+                                    getInstance(context).dao().insertSingleExercise(new ExerciseDBObject("MG_TRACKER"));
                                 }
                             }
                         });

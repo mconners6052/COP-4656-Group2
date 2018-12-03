@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     private Workout workout;// = Workout.get(getApplicationContext());
     private ExerciseDB exerciseDb;
     private ExerciseFragmentContainer efc;
+    private ExercisePreferences eps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity
         workout = Workout.get(getApplicationContext());
         workoutFrag = new WorkoutFragment();
         efc = new ExerciseFragmentContainer();
+        eps = new ExercisePreferences();
 
 
         workout.addUpdateListener(new UpdateHandler() {
@@ -137,13 +139,14 @@ public class MainActivity extends AppCompatActivity
             sOpen = settings(sOpen);
         }
         else if (id == R.id.settings_item1) {
-            testDB();
+            fm.beginTransaction().replace(R.id.main_frame, eps).commit();
+            drawer.closeDrawer(GravityCompat.START);
         }
         else if (id == R.id.settings_item2) {
             workout.updateWorkout(this.toString());
         }
         else if (id == R.id.settings_item3) {
-            Toast.makeText(this,"Setting 3",Toast.LENGTH_LONG).show();
+            testDB();
         }
         return true;
     }

@@ -112,7 +112,7 @@ WorkoutFragment extends Fragment {
         }
         @Override
         public void onBindViewHolder(ExerciseHolder holder, int position) {
-            Log.d("Recycler: ","onBindViewHolder: called");
+            //Log.d("Recycler: ","onBindViewHolder: called");
             holder.bind(exercises.get(position));
         }
         @Override

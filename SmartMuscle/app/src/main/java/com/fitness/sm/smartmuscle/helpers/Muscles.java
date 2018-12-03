@@ -6,7 +6,8 @@ public class Muscles {
         ARMS,
         LEGS,
         CHEST,
-        BACK
+        BACK,
+        ABS
     }
 
     public static MuscleGroup getMuscleGroup(int i){
@@ -16,8 +17,10 @@ public class Muscles {
             return MuscleGroup.LEGS;
         }else if (i == 2){
             return MuscleGroup.CHEST;
-        }else if (i == 3){
+        }else if (i == 3) {
             return MuscleGroup.BACK;
+        }else if (i == 4){
+            return MuscleGroup.ABS;
         }else{
             return null;
         }
@@ -32,6 +35,8 @@ public class Muscles {
             return 2;
         } else if (mg==MuscleGroup.BACK){
             return 3;
+        } else if (mg == MuscleGroup.ABS){
+            return 4;
         } else{
             return -1;
         }
@@ -47,6 +52,8 @@ public class Muscles {
                 return "Back";
             case CHEST:
                 return "Chest";
+            case ABS:
+                return "Abs";
         }
         return null;
     }

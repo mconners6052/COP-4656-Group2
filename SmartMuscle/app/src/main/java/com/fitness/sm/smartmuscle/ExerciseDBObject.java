@@ -29,11 +29,16 @@ public class ExerciseDBObject {
     public ExerciseDBObject(){};
 
     @Ignore
-    public ExerciseDBObject(String url, String name, int mg_int){
-        this.url = url;
-        this.name = name;
-        this.mg_int =mg_int;
+    public ExerciseDBObject(String base){
+        this.url = base;
+        this.name = "Empty";
+        this.mg_int =0;
+        this.wanted=2;
+        this.reps = 0;
+        this.sets = 0;
+        this.weight=0;
     }
+
 
 
     public ExerciseDBObject(String url, String name, String steps, int mg_int, int sets, int reps, int weight, int wanted){
@@ -88,5 +93,5 @@ public class ExerciseDBObject {
 
     @NonNull
     public int getWanted() {return wanted;}
-    public void setWanted(@NonNull int wanted) {this.wanted = wanted;}
+    public void setWanted(@NonNull int wanted) {if(wanted==1 || wanted ==0){this.wanted = wanted;}}
 }
